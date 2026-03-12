@@ -1,1 +1,10 @@
-<p>donut works!</p>
+<div *ngIf="chartOptions" class="w-full max-w-md mx-auto">
+
+  <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [labels]="chartOptions.labels"
+    [legend]="chartOptions.legend">
+  </apx-chart>
+
+</div>

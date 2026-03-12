@@ -1,5 +1,5 @@
 <h1 class="font-black text-4xl text-center pt-10">EarthQuakes Dashboard</h1>
-<div class="p-6 space-y-6">
+<div *ngIf="earthquakes$ | async as earthquakes" class="p-6 space-y-6">
 
   <!-- Fila superior -->
   <div class="grid grid-cols-4 gap-6">
@@ -11,7 +11,10 @@
 
     <!-- mapa -->
     <div class="col-span-3 bg-white rounded-xl shadow p-4">
-      <app-earthquake-map></app-earthquake-map>
+      <app-earthquake-map
+    [earthquakes]="earthquakes">
+  </app-earthquake-map>
+
   
   
 
@@ -20,21 +23,27 @@
   </div>
   
   <!-- fila inferior -->
-  <div class="grid grid-cols-2 gap-6">
+  <div class="grid grid-cols-6">
       
-      <div class="bg-white rounded-xl shadow p-4">
-          <app-donut></app-donut>
-        </div>
+      <div class="bg-white rounded-xl shadow p-4 col-span-2">
+          <app-donut
+            [earthquakes]="earthquakes">
+          </app-donut>
+      </div>
 
         <!-- timeline -->
-        <div class="bg-white rounded-xl shadow p-4">
-            <app-timeline></app-timeline>
+         <div class="bg-white rounded-xl shadow p-4 col-span-4">
+            <app-timeline
+              [earthquakes]="earthquakes">
+            </app-timeline>
         </div>
+        
         
 </div>
 
     <div class="bg-white rounded-xl shadow p-4">
       <app-prediction></app-prediction>
     </div>
+    
 
 </div>

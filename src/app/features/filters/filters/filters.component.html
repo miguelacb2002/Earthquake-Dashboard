@@ -1,1 +1,45 @@
-<p>filters works!</p>
+<div class="bg-white p-4 rounded shadow space-y-3">
+
+  <h2 class="font-semibold">
+    Filters
+  </h2>
+
+  <input
+    type="number"
+    placeholder="Min Magnitude"
+    [(ngModel)]="minMagnitude"
+    class="border p-2 w-full"
+  />
+
+  <input
+    type="number"
+    placeholder="Max Magnitude"
+    [(ngModel)]="maxMagnitude"
+    class="border p-2 w-full"
+  />
+
+  <input
+    type="text"
+    placeholder="Location (example: Chile)"
+    [(ngModel)]="location"
+  >
+
+  <label class="flex items-center gap-2">
+
+    <input
+      type="checkbox"
+      [(ngModel)]="tsunami"
+    />
+
+    Tsunami Risk
+
+  </label>
+
+  <button
+    (click)="applyFilters()"
+    class="bg-blue-500 text-white px-4 py-2 rounded"
+  >
+    Apply
+  </button>
+
+</div>

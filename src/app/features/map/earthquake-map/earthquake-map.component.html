@@ -6,13 +6,13 @@
 >
 
   <map-marker
-    *ngFor="let earthquake of earthquakesData"
-    #marker="mapMarker"
+    *ngFor="let earthquake of earthquakes"
     [position]="{
-      lat: earthquake.latitude,
-      lng: earthquake.longitude
+        lat: earthquake.latitude,
+        lng: earthquake.longitude
     }"
     (mapClick)="popUpInfo(marker, earthquake)"
+    #marker="mapMarker"
   >
   </map-marker>
 
@@ -43,10 +43,7 @@
         Tsunami risk:
         {{ selectedEarthquake.tsunami }}
       </p>
-      <p>
-        Place:
-        {{selectedEarthquake.place}}
-      </p>
+      
 
       <a
         [href]="selectedEarthquake.url"
