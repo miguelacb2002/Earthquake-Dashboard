@@ -105,47 +105,80 @@ export class EarthquakeStore {
     }
 
     /* clearFilters */
-    prediction$ = this.filteredEarthquakes$.pipe(
+    prediction$ = this.selectedEarthquake$.pipe(
 
-    map((earthquakes) => {    
+  map((eq) => {
 
-    const total = earthquakes.length
-
-    if (total === 0) {
+    if (!eq) {
       return {
-        total: 0,
-        strong: 0,
-        probability: 0,
-        message: 'No data available'
+        risk: 'No event selected',
+        probability: 0
       }
     }
 
-    const strong = earthquakes.filter(
-      eq => eq.magnitude >= 3
-    ).length
+    /* Magnitude factor */
 
-    const probability = (strong / total) * 100
+    let magnitudeScore = 0
 
-    let message = ''
+    if (eq.magnitude < 4) magnitudeScore = 10
+    else if (eq.magnitude < 5) magnitudeScore = 30
+    else if (eq.magnitude < 6) magnitudeScore = 50
+    else magnitudeScore = 70
 
-    if (probability > 20) {
-      message = 'High probability of strong earthquakes'
+
+    /* Depth factor */
+
+    let depthScore = 0
+
+    if (eq.depth < 70) depthScore = 20
+    else if (eq.depth < 300) depthScore = 10
+    else depthScore = 0
+
+
+    /* Alert factor */
+
+    let alertScore = 0
+
+    switch(eq.alert){
+      case 'green':
+        alertScore = 5
+        break
+      case 'yellow':
+        alertScore = 10
+        break
+      case 'orange':
+        alertScore = 15
+        break
+      case 'red':
+        alertScore = 20
+        break
     }
-    else if (probability > 10) {
-      message = 'Moderate seismic activity'
-    }
-    else {
-      message = 'Low probability of strong earthquakes'
-    }
+
+
+    /* Final probability */
+
+    let probability = magnitudeScore + depthScore + alertScore
+
+    if (probability > 100) probability = 100
+
+
+    /* Risk label */
+
+    let risk = ''
+
+    if (probability >= 70) risk = 'High'
+    else if (probability >= 40) risk = 'Moderate'
+    else risk = 'Low'
+
 
     return {
-      total,
-      strong,
-      probability: Number(probability.toFixed(2)),
-      message
+      risk,
+      probability
     }
 
   })
+
+
 
 )
 

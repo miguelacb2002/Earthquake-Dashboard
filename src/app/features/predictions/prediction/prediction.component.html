@@ -1,19 +1,32 @@
 <div *ngIf="prediction$ | async as prediction">
 
   <h2 class="text-xl font-bold mb-4">
-    Seismic Prediction
+    Aftershock Prediction
   </h2>
 
-  <p>Total earthquakes: {{prediction.total}}</p>
+  <div class="space-y-2">
 
-  <p>Strong earthquakes (≥3): {{prediction.strong}}</p>
+    <p class="text-lg">
+      Risk Level:
+      <span
+        class="font-semibold"
+        [ngClass]="{
+          'text-green-600': prediction.risk === 'Low',
+          'text-yellow-600': prediction.risk === 'Moderate',
+          'text-red-600': prediction.risk === 'High'
+        }"
+      >
+        {{ prediction.risk }}
+      </span>
+    </p>
 
-  <p class="font-semibold">
-    Probability: {{prediction.probability}}%
-  </p>
+    <p class="text-lg">
+      Estimated Probability:
+      <span class="font-semibold">
+        {{ prediction.probability }}%
+      </span>
+    </p>
 
-  <p class="text-gray-600">
-    {{prediction.message}}
-  </p>
+  </div>
 
 </div>

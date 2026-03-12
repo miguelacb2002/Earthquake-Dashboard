@@ -20,6 +20,7 @@ export class TimelineComponent implements OnInit, OnChanges {
   selectedIndex: number | null = null
 
   private selectedEq: Earthquake | null = null
+  private hasLoadedData = false;
 
   constructor(private store: EarthquakeStore) {}
 
@@ -41,29 +42,40 @@ export class TimelineComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
 
-    // caso filtro sin resultados
-    if (!this.earthquakes.length) {
+  if (!changes['earthquakes']) return;
 
-      this.selectedIndex = null
+  const data = changes['earthquakes'].currentValue as Earthquake[];
 
-      this.chartOptions = {
-        series: []
-      }
+  if (!this.hasLoadedData) {
+    if (!data || data.length === 0) return;
 
-      return
-    }
-
-    if (this.selectedEq) {
-
-      this.selectedIndex = this.earthquakes.findIndex(
-        e => e.id === this.selectedEq!.id
-      )
-
-    }
-
-    this.updateChart()
-
+    this.hasLoadedData = true;
   }
+
+  if (data.length === 0) {
+
+    this.selectedIndex = null;
+
+    this.chartOptions = {
+      series: [],
+      chart: {
+        type: 'scatter',
+        height: 350
+      },
+      xaxis: { type: 'datetime' },
+      yaxis: { title: { text: 'Magnitude' } },
+      markers: { size: 4 }
+    };
+
+    return;
+  }
+
+  if (this.selectedEq) {
+    this.selectedIndex = data.findIndex(e => e.id === this.selectedEq!.id);
+  }
+
+  this.updateChart();
+}
 
   updateChart() {
 
