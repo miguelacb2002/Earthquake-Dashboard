@@ -5,24 +5,31 @@
   </h2>
 
   <input
-    type="number"
-    placeholder="Min Magnitude"
-    [(ngModel)]="minMagnitude"
-    class="border p-2 w-full"
-  />
+  type="number"
+  placeholder="Min Magnitude"
+  [(ngModel)]="minMagnitude"
+  min="0"
+  max="10"
+  step="0.1"
+  class="border p-2 w-full"
+/>
 
-  <input
-    type="number"
-    placeholder="Max Magnitude"
-    [(ngModel)]="maxMagnitude"
-    class="border p-2 w-full"
-  />
+<input
+  type="number"
+  placeholder="Max Magnitude"
+  [(ngModel)]="maxMagnitude"
+  min="0"
+  max="10"
+  step="0.1"
+  class="border p-2 w-full"
+/>
 
-  <input
-    type="text"
-    placeholder="Location (example: Chile)"
-    [(ngModel)]="location"
-  >
+<input
+  type="text"
+  placeholder="Location (example: Chile)"
+  [(ngModel)]="location"
+  class="border p-2 w-full"
+/>
 
   <label class="flex items-center gap-2">
 

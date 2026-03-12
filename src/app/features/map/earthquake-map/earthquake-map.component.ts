@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, viewChild, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { GoogleMap, MapMarker, MapInfoWindow } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 
@@ -15,8 +15,10 @@ import { EarthquakeStore } from '../../../core/state/earthquake.store';
 export class EarthquakeMapComponent implements OnInit {
 
   @Input() earthquakes: Earthquake[] = [];
-  @ViewChild(GoogleMap) map!:GoogleMap
+
+  @ViewChild(GoogleMap) map!: GoogleMap;
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
+  @ViewChildren(MapMarker) markers!: QueryList<MapMarker>;
 
   constructor(private store: EarthquakeStore) {}
 
@@ -31,28 +33,44 @@ export class EarthquakeMapComponent implements OnInit {
 
   ngOnInit() {
 
-  this.store.selectedEarthquake$
-    .subscribe(eq => {
+    this.store.selectedEarthquake$
+      .subscribe(eq => {
 
-      console.log("MAP RECEIVED", eq)
+        if (!eq) return;
 
-      if (!eq) return
+        // actualizar terremoto seleccionado
+        this.selectedEarthquake = eq;
 
-      const newCenter = {
-        lat: Number(eq.latitude),
-        lng: Number(eq.longitude)
-      }
+        const newCenter = {
+          lat: Number(eq.latitude),
+          lng: Number(eq.longitude)
+        };
 
-      this.center = newCenter
-      this.zoom = 6
+        // centrar mapa
+        this.center = newCenter;
+        this.zoom = 6;
 
-      if (this.map?.googleMap) {
-        this.map.googleMap.panTo(newCenter)
-      }
+        if (this.map?.googleMap) {
+          this.map.googleMap.panTo(newCenter);
+        }
 
-    })
+        // abrir popup correspondiente
+        setTimeout(() => {
 
-}
+          const marker = this.markers.find(m =>
+            m.getPosition()?.lat() === Number(eq.latitude) &&
+            m.getPosition()?.lng() === Number(eq.longitude)
+          );
+
+          if (marker) {
+            this.infoWindow.open(marker);
+          }
+
+        });
+
+      });
+
+  }
 
   popUpInfo(marker: MapMarker, earthquake: Earthquake) {
 

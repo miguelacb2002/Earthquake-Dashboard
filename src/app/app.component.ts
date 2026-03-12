@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { DashboardComponent } from "./layout/dashboard/dashboard.component";
 
 
@@ -14,9 +13,5 @@ import { DashboardComponent } from "./layout/dashboard/dashboard.component";
 })
 
 export class AppComponent {
-  constructor(private toastr: ToastrService){}
-  title = 'earthquake-info';
-  testToast(){
-    this.toastr.success('Listo para inicar')
-  }
+  
 }

@@ -13,7 +13,10 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideToastr({
       positionClass: 'toast-bottom-right',
-      timeOut: 3000
+      timeOut: 5000,
+      preventDuplicates:true,
+      progressBar:true,
+      closeButton:true
     })
   ]
 };
