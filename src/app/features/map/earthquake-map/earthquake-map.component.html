@@ -2,18 +2,13 @@
   height="500px"
   width="100%"
   [center]="center"
-  [zoom]="zoom"
->
+  [zoom]="zoom">
 
   <map-marker
-    *ngFor="let earthquake of earthquakes"
-    [position]="{
-        lat: earthquake.latitude,
-        lng: earthquake.longitude
-    }"
-    (mapClick)="popUpInfo(marker, earthquake)"
+    *ngFor="let eq of earthquakes"
     #marker="mapMarker"
-  >
+    [position]="{ lat: eq.latitude, lng: eq.longitude }"
+    (mapClick)="popUpInfo(marker, eq)">
   </map-marker>
 
   <map-info-window>
@@ -43,13 +38,11 @@
         Tsunami risk:
         {{ selectedEarthquake.tsunami }}
       </p>
-      
 
       <a
         [href]="selectedEarthquake.url"
         target="_blank"
-        class="text-blue-500 underline"
-      >
+        class="text-blue-500 underline">
         More details
       </a>
 

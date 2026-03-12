@@ -87,6 +87,19 @@ export class EarthquakeStore {
 
         })
     }
+
+    private selectedEarthquakeSubject =
+        new BehaviorSubject<Earthquake | null>(null)
+
+    selectedEarthquake$ =
+        this.selectedEarthquakeSubject.asObservable()
+
+    selectEarthquake(eq:Earthquake){
+
+    this.selectedEarthquakeSubject.next(eq)
+    }
+
+
     clearFilters(){
         this.filtersSubject.next({...this.initialFilters})
     }
@@ -108,7 +121,7 @@ export class EarthquakeStore {
     }
 
     const strong = earthquakes.filter(
-      eq => eq.magnitude >= 6
+      eq => eq.magnitude >= 3
     ).length
 
     const probability = (strong / total) * 100

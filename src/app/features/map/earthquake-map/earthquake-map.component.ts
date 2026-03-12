@@ -1,34 +1,60 @@
-import { Component, Input} from '@angular/core';
-import {GoogleMap, MapMarker, MapInfoWindow} from '@angular/google-maps'
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { GoogleMap, MapMarker, MapInfoWindow } from '@angular/google-maps';
+import { CommonModule } from '@angular/common';
 
 import { Earthquake } from '../../../core/models/earhquake.model';
-
-import { CommonModule} from '@angular/common';
-import { ViewChild } from '@angular/core';
-
+import { EarthquakeStore } from '../../../core/state/earthquake.store';
 
 @Component({
   selector: 'app-earthquake-map',
-  standalone:true,
-  imports: [GoogleMap,MapMarker, CommonModule, MapInfoWindow],
+  standalone: true,
+  imports: [GoogleMap, MapMarker, MapInfoWindow, CommonModule],
   templateUrl: './earthquake-map.component.html',
   styleUrl: './earthquake-map.component.scss'
 })
-export class EarthquakeMapComponent {
-  @Input() earthquakes: Earthquake[]=[]
-  @ViewChild(MapInfoWindow) infoWindow!:MapInfoWindow
+export class EarthquakeMapComponent implements OnInit {
 
-  center:google.maps.LatLngLiteral = {
-    lat:20,
-    lng:0
+  @Input() earthquakes: Earthquake[] = [];
+
+  @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
+
+  constructor(private store: EarthquakeStore) {}
+
+  center: google.maps.LatLngLiteral = {
+    lat: 20,
+    lng: 0
+  };
+
+  zoom = 2;
+
+  selectedEarthquake: Earthquake | null = null;
+
+  ngOnInit() {
+
+    this.store.selectedEarthquake$
+      .subscribe(eq => {
+
+        if (!eq) return;
+
+        this.center = {
+          lat: Number(eq.latitude),
+          lng: Number(eq.longitude)
+        };
+
+        this.zoom = 6;
+
+      });
+
   }
-  zoom = 2
-  selectedEarthquake: Earthquake | null =  null
 
-  popUpInfo(marker:MapMarker,earhquake:Earthquake){
-    this.selectedEarthquake = earhquake
-    this.infoWindow.open(marker)
+  popUpInfo(marker: MapMarker, earthquake: Earthquake) {
+
+    this.selectedEarthquake = earthquake;
+
+    this.store.selectEarthquake(earthquake);
+
+    this.infoWindow.open(marker);
+
   }
-
 
 }
