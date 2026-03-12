@@ -1,0 +1,63 @@
+<google-map
+  height="500px"
+  width="100%"
+  [center]="center"
+  [zoom]="zoom"
+>
+
+  <map-marker
+    *ngFor="let earthquake of earthquakesData"
+    #marker="mapMarker"
+    [position]="{
+      lat: earthquake.latitude,
+      lng: earthquake.longitude
+    }"
+    (mapClick)="popUpInfo(marker, earthquake)"
+  >
+  </map-marker>
+
+  <map-info-window>
+
+    <div *ngIf="selectedEarthquake">
+
+      <h3 class="font-bold">
+        {{ selectedEarthquake.title }}
+      </h3>
+
+      <p>
+        Magnitude:
+        {{ selectedEarthquake.magnitude }}
+      </p>
+
+      <p>
+        Location:
+        {{ selectedEarthquake.place }}
+      </p>
+
+      <p>
+        Depth:
+        {{ selectedEarthquake.depth }} km
+      </p>
+
+      <p>
+        Tsunami risk:
+        {{ selectedEarthquake.tsunami }}
+      </p>
+      <p>
+        Place:
+        {{selectedEarthquake.place}}
+      </p>
+
+      <a
+        [href]="selectedEarthquake.url"
+        target="_blank"
+        class="text-blue-500 underline"
+      >
+        More details
+      </a>
+
+    </div>
+
+  </map-info-window>
+
+</google-map>

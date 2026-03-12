@@ -1,0 +1,40 @@
+<h1 class="font-black text-4xl text-center pt-10">EarthQuakes Dashboard</h1>
+<div class="p-6 space-y-6">
+
+  <!-- Fila superior -->
+  <div class="grid grid-cols-4 gap-6">
+
+    <!-- filtros -->
+    <div class="col-span-1 bg-white rounded-xl shadow p-4">
+      <app-filters></app-filters>
+    </div>
+
+    <!-- mapa -->
+    <div class="col-span-3 bg-white rounded-xl shadow p-4">
+      <app-earthquake-map></app-earthquake-map>
+  
+  
+
+    </div>
+
+  </div>
+  
+  <!-- fila inferior -->
+  <div class="grid grid-cols-2 gap-6">
+      
+      <div class="bg-white rounded-xl shadow p-4">
+          <app-donut></app-donut>
+        </div>
+
+        <!-- timeline -->
+        <div class="bg-white rounded-xl shadow p-4">
+            <app-timeline></app-timeline>
+        </div>
+        
+</div>
+
+    <div class="bg-white rounded-xl shadow p-4">
+      <app-prediction></app-prediction>
+    </div>
+
+</div>
