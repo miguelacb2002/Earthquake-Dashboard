@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges} from '@angular/core';
+import { Component, Input, OnChanges, OnInit} from '@angular/core';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { Earthquake } from '../../../core/models/earhquake.model';
@@ -20,12 +20,13 @@ export class TimelineComponent implements OnChanges{
 
   ngOnChanges(){
 
-    if(!this.earthquakes) return
+    if(!this.earthquakes || this.earthquakes.length ===0) return
 
     const data =  this.earthquakes.map(eq=>({
       x:new Date(eq.time),
       y:eq.magnitude
     }))
+    console.log(this.earthquakes)
 
     this.chartOptions = {
       series:[

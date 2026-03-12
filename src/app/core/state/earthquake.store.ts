@@ -20,14 +20,17 @@ export class EarthquakeStore {
     private earthquakesSubject = new BehaviorSubject<Earthquake[]>([])
     earthquakes$=this.earthquakesSubject.asObservable()
 
-    /* Filter State */
-     private filtersSubject =
-    new BehaviorSubject<EarthquakeFilters>({
-      minMagnitude: null,
+    private initialFilters: EarthquakeFilters={
+    minMagnitude: null,
       maxMagnitude: null,
       tsunami: 0,
       location:''
-    })
+    }
+
+
+    /* Filter State */
+     private filtersSubject =
+    new BehaviorSubject<EarthquakeFilters>(this.initialFilters)
 
     filters$=this.filtersSubject.asObservable()
 
@@ -84,5 +87,53 @@ export class EarthquakeStore {
 
         })
     }
+    clearFilters(){
+        this.filtersSubject.next({...this.initialFilters})
+    }
+
+    /* clearFilters */
+    prediction$ = this.filteredEarthquakes$.pipe(
+
+    map((earthquakes) => {    
+
+    const total = earthquakes.length
+
+    if (total === 0) {
+      return {
+        total: 0,
+        strong: 0,
+        probability: 0,
+        message: 'No data available'
+      }
+    }
+
+    const strong = earthquakes.filter(
+      eq => eq.magnitude >= 6
+    ).length
+
+    const probability = (strong / total) * 100
+
+    let message = ''
+
+    if (probability > 20) {
+      message = 'High probability of strong earthquakes'
+    }
+    else if (probability > 10) {
+      message = 'Moderate seismic activity'
+    }
+    else {
+      message = 'Low probability of strong earthquakes'
+    }
+
+    return {
+      total,
+      strong,
+      probability: Number(probability.toFixed(2)),
+      message
+    }
+
+  })
+
+)
 
 }

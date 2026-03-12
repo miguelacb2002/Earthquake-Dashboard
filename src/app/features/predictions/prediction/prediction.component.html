@@ -1,1 +1,19 @@
-<p>prediction works!</p>
+<div *ngIf="prediction$ | async as prediction">
+
+  <h2 class="text-xl font-bold mb-4">
+    Seismic Prediction
+  </h2>
+
+  <p>Total earthquakes: {{prediction.total}}</p>
+
+  <p>Strong earthquakes (≥6): {{prediction.strong}}</p>
+
+  <p class="font-semibold">
+    Probability: {{prediction.probability}}%
+  </p>
+
+  <p class="text-gray-600">
+    {{prediction.message}}
+  </p>
+
+</div>

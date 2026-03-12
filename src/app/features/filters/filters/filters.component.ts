@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule} from '@angular/forms'
 
 import { EarthquakeStore } from '../../../core/state/earthquake.store';
-import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-filters',
@@ -12,7 +11,7 @@ import { filter } from 'rxjs';
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.scss'
 })
-export class FiltersComponent {
+export class FiltersComponent implements OnInit {
   minMagnitude:number | null = null
   maxMagnitude:number | null = null 
   startDate: Date | null = null 
@@ -24,6 +23,10 @@ export class FiltersComponent {
     private store:EarthquakeStore
   ){}
 
+  ngOnInit(): void {
+    this.resetFilters()
+  }
+
   applyFilters(){
     this.store.updateFilters({
       minMagnitude:this.minMagnitude,
@@ -31,5 +34,13 @@ export class FiltersComponent {
       tsunami: this.tsunami,
       location: this.location
     })
+  }
+  resetFilters(){
+  this.store.clearFilters()
+
+  this.minMagnitude = null
+  this.maxMagnitude = null
+  this.location = ''
+  this.tsunami = 0
   }
 }
