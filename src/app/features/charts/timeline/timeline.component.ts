@@ -87,7 +87,7 @@ export class TimelineComponent implements OnInit, OnChanges {
     this.chartOptions = {
   series: [
     {
-      name: 'Earthquake Magnitude',
+      name: 'Magnitud del terremoto',
       data
     }
   ],
@@ -123,7 +123,7 @@ export class TimelineComponent implements OnInit, OnChanges {
   xaxis: {
     type: 'datetime',
     title: { 
-      text: 'Time', 
+      text: 'Tiempo', 
       style: { color: '#ffffff', fontSize: '14px', fontWeight: 'bold' } 
     },
     labels: {
@@ -136,7 +136,7 @@ export class TimelineComponent implements OnInit, OnChanges {
 
   yaxis: {
     title: { 
-      text: 'Magnitude',
+      text: 'Magnitud',
       style: { color: '#ffffff', fontSize: '14px', fontWeight: 'bold' }
     },
     labels: {
@@ -148,16 +148,17 @@ export class TimelineComponent implements OnInit, OnChanges {
   },
 
   tooltip: {
+    theme:'dark' , 
     x: { format: 'dd MMM HH:mm' },
     style: {
       fontSize: '12px',
-      color: '#ffffff'
+      color: '#000000'
     }
   },
 
   legend: {
     labels: {
-      colors: '#ffffff' 
+      colors: '#000000' 
     }
   }
 };

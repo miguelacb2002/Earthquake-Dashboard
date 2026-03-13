@@ -1,12 +1,12 @@
 <div class="bg-slate-800 p-4 rounded shadow space-y-3">
 
   <h2 class="text-xl text-white">
-    Filters
+    Filtros
   </h2>
   <hr class="border-t border-gray-600 my-4">
 <div class="space-y-3">
 
-  <p class="text-white mb-4">Magnitude</p>
+  <p class="text-white mb-4">Magnitud</p>
   <ngx-slider
     [(value)]="minMagnitude"
     [(highValue)]="maxMagnitude"
@@ -14,16 +14,16 @@
   </ngx-slider>
 
   <p class="text-sm text-gray-200">
-    Selected: {{minMagnitude}} - {{maxMagnitude}}
+    Intervalo: {{minMagnitude}} - {{maxMagnitude}}
   </p>
 
 </div>
 <hr class="border-t border-gray-600 my-4">
 
-<p class="text-white mb-4">Location</p>
+<p class="text-white mb-4">Ubicación</p>
 <input
   type="text"
-  placeholder="Search country or city"
+  placeholder="Busca el país o ciudad"
   [(ngModel)]="location"
   class=" p-2 w-full bg-slate-500 rounded-md text-white"
 />
@@ -37,7 +37,7 @@
       [(ngModel)]="tsunami"
     />
 
-    Tsunami Risk
+    Riesgo de Tsunami
 
   </label>
 
@@ -47,13 +47,13 @@
     (click)="applyFilters()"
     class="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-slate-900 hover:text-blue-200"
   >
-    Apply
+    Aplicar
   </button>
 
   <button
   class="bg-gray-300 px-4 py-2 rounded ml-2  hover:bg-slate-900 hover:text-blue-200"
   (click)="resetFilters()">
-  Clear Filters
+  Limpiar
     </button>
   
 

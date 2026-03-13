@@ -113,7 +113,7 @@ export class EarthquakeStore {
 
     if (!eq) {
       return {
-        risk: 'No event selected',
+        risk: 'Ningun terremoto seleccionado',
         probability: 0
       }
     }
@@ -168,9 +168,9 @@ export class EarthquakeStore {
 
     let risk = ''
 
-    if (probability >= 70) risk = 'High'
-    else if (probability >= 40) risk = 'Moderate'
-    else risk = 'Low'
+    if (probability >= 70) risk = 'Alto'
+    else if (probability >= 40) risk = 'Moderado'
+    else risk = 'Bajo'
 
 
     return {

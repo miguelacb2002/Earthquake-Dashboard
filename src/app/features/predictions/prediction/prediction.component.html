@@ -1,20 +1,20 @@
 <div *ngIf="prediction$ | async as prediction">
 
   <h2 class="text-xl mb-4">
-    Aftershock Prediction
+    Predicción de réplica
   </h2>
   <hr class="border-t border-gray-600 my-4">
 
   <div class="space-y-2">
 
     <p class="text-lg">
-      Risk Level:
+      Nivel de riesgo:
       <span
         class="font-semibold"
         [ngClass]="{
-          'text-green-600': prediction.risk === 'Low',
-          'text-yellow-600': prediction.risk === 'Moderate',
-          'text-red-600': prediction.risk === 'High'
+          'text-green-600': prediction.risk === 'Bajo',
+          'text-yellow-600': prediction.risk === 'Moderado',
+          'text-red-600': prediction.risk === 'Alto'
         }"
       >
         {{ prediction.risk }}
@@ -22,7 +22,7 @@
     </p>
 
     <p class="text-lg">
-      Estimated Probability:
+      Probabilidad estimada:
       <span class="font-semibold">
         {{ prediction.probability }}%
       </span>

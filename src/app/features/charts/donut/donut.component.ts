@@ -16,7 +16,7 @@ export class DonutComponent implements OnChanges{
   @Input() earthquakes: Earthquake[]=[];
 
   series:number[]=[]
-  labels:string[]=[]=['Tsunami Risk','No tsunami Risk']
+  labels:string[]=[]=['Riesgo de Tsunami','Sin riesgo de Tsunami']
 
   chartOptions:any
 
