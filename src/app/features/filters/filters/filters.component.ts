@@ -1,21 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
+import { ToastrService } from 'ngx-toastr'
 
-import { EarthquakeStore } from '../../../core/state/earthquake.store';
+import { NgxSliderModule, Options } from '@angular-slider/ngx-slider'
+
+import { EarthquakeStore } from '../../../core/state/earthquake.store'
 
 @Component({
   selector: 'app-filters',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgxSliderModule],
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.scss'
 })
 export class FiltersComponent implements OnInit {
 
-  minMagnitude: number | null = null
-  maxMagnitude: number | null = null
+  
+  minMagnitude: number = 0
+  maxMagnitude: number = 10
+
+  sliderOptions: Options = {
+    floor: 0,
+    ceil: 10,
+    step: 1,
+    showTicks: false,
+    showTicksValues: false
+  }
+
   startDate: Date | null = null
   endDate: Date | null = null
   tsunami = 0
@@ -32,6 +44,7 @@ export class FiltersComponent implements OnInit {
     this.store.filteredEarthquakes$
       .subscribe(data => {
 
+       
         if (!this.hasLoadedData) {
 
           if (data.length > 0) {
@@ -41,13 +54,13 @@ export class FiltersComponent implements OnInit {
           return
         }
 
-
+        
         if (this.filterApplied && data.length === 0) {
 
           this.toast.warning(
-            'No earthquakes match the selected filters', 
+            'No earthquakes match the selected filters',
             'No Results'
-          );
+          )
 
           this.filterApplied = false
         }
@@ -77,8 +90,8 @@ export class FiltersComponent implements OnInit {
 
     this.store.clearFilters()
 
-    this.minMagnitude = null
-    this.maxMagnitude = null
+    this.minMagnitude = 0
+    this.maxMagnitude = 10
     this.location = ''
     this.tsunami = 0
 

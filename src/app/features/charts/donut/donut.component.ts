@@ -33,15 +33,31 @@ export class DonutComponent implements OnChanges{
 
     this.series = [tsunamiRisk, noTsunamiRisk]
 
-    this.chartOptions={
-      series:this.series,
-      chart:{
-        type:'donut',
-        height:350,
+     this.chartOptions = {
+      series: this.series,
+      chart: {
+        type: 'donut',
+        height: 350,
       },
-      labels:this.labels,
-      legend:{
-        position:'bottom'
+      labels: this.labels,
+      colors: ['#ff4d4f', '#1890ff'], 
+      legend: {
+        position: 'bottom',
+        labels: {
+          colors: '#ffffff'
+        }
+      },
+      plotOptions: {
+        pie: {
+          dataLabels: {
+            enabled: true,
+            style: {
+              colors: ['#ffffff'], 
+              fontSize: '14px',
+              fontWeight: 'bold'
+            }
+          }
+        }
       }
     }
     

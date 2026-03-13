@@ -16,7 +16,7 @@ export class EarthquakeStore {
         this.loadEarthquakes()
     }
 
-    /* state */
+    
     private earthquakesSubject = new BehaviorSubject<Earthquake[]>([])
     earthquakes$=this.earthquakesSubject.asObservable()
 
@@ -28,13 +28,13 @@ export class EarthquakeStore {
     }
 
 
-    /* Filter State */
+    
      private filtersSubject =
     new BehaviorSubject<EarthquakeFilters>(this.initialFilters)
 
     filters$=this.filtersSubject.asObservable()
 
-    /* Filtered data */
+    
     filteredEarthquakes$=
     combineLatest([
         this.earthquakes$,
@@ -44,21 +44,20 @@ export class EarthquakeStore {
         this.applyFilters(earthquakes,filters)
         )
     )
-    /* Api Load */
+    
     private loadEarthquakes(){
         this.earthquakeService.getEarthquakes().subscribe(data=>{
             this.earthquakesSubject.next(data)
         })
     }
-    /* Update Filters */
-    updateFilters(filters:Partial<EarthquakeFilters>){
+     updateFilters(filters:Partial<EarthquakeFilters>){
         const current = this.filtersSubject.value
         this.filtersSubject.next({
             ...current,
             ...filters
         })
     }
-    /* FilterLogic */
+    
     private applyFilters(
         eartchquakes:Earthquake[],
         filters:EarthquakeFilters
@@ -104,7 +103,10 @@ export class EarthquakeStore {
         this.filtersSubject.next({...this.initialFilters})
     }
 
-    /* clearFilters */
+
+
+
+    /* Predictions */
     prediction$ = this.selectedEarthquake$.pipe(
 
   map((eq) => {

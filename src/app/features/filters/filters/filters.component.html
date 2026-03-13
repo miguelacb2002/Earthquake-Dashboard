@@ -1,39 +1,38 @@
-<div class="bg-white p-4 rounded shadow space-y-3">
+<div class="bg-slate-800 p-4 rounded shadow space-y-3">
 
-  <h2 class="font-semibold">
+  <h2 class="text-xl text-white">
     Filters
   </h2>
+  <hr class="border-t border-gray-600 my-4">
+<div class="space-y-3">
 
-  <input
-  type="number"
-  placeholder="Min Magnitude"
-  [(ngModel)]="minMagnitude"
-  min="0"
-  max="10"
-  step="0.1"
-  class="border p-2 w-full"
-/>
+  <p class="text-white mb-4">Magnitude</p>
+  <ngx-slider
+    [(value)]="minMagnitude"
+    [(highValue)]="maxMagnitude"
+    [options]="sliderOptions">
+  </ngx-slider>
 
-<input
-  type="number"
-  placeholder="Max Magnitude"
-  [(ngModel)]="maxMagnitude"
-  min="0"
-  max="10"
-  step="0.1"
-  class="border p-2 w-full"
-/>
+  <p class="text-sm text-gray-200">
+    Selected: {{minMagnitude}} - {{maxMagnitude}}
+  </p>
 
+</div>
+<hr class="border-t border-gray-600 my-4">
+
+<p class="text-white mb-4">Location</p>
 <input
   type="text"
-  placeholder="Location (example: Chile)"
+  placeholder="Search country or city"
   [(ngModel)]="location"
-  class="border p-2 w-full"
+  class=" p-2 w-full bg-slate-500 rounded-md text-white"
 />
+<hr class="border-t border-gray-600 my-4">
 
-  <label class="flex items-center gap-2">
+  <label class="flex items-center gap-2 text-white">
 
     <input
+        class="bg-slate-500"
       type="checkbox"
       [(ngModel)]="tsunami"
     />
@@ -42,17 +41,20 @@
 
   </label>
 
+  <hr class="border-t border-gray-600 my-4">
+
   <button
     (click)="applyFilters()"
-    class="bg-blue-500 text-white px-4 py-2 rounded"
+    class="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-slate-900 hover:text-blue-200"
   >
     Apply
   </button>
+
   <button
-  class="bg-gray-300 px-4 py-2 rounded"
+  class="bg-gray-300 px-4 py-2 rounded ml-2  hover:bg-slate-900 hover:text-blue-200"
   (click)="resetFilters()">
   Clear Filters
-</button>
+    </button>
   
 
 </div>

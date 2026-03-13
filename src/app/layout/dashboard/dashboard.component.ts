@@ -14,7 +14,6 @@ import { FiltersComponent } from '../../features/filters/filters/filters.compone
   standalone: true, 
   imports: [
     CommonModule,
-
     EarthquakeMapComponent,
     PredictionComponent,
     DonutComponent,

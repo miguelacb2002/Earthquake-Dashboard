@@ -13,5 +13,6 @@ import { DashboardComponent } from "./layout/dashboard/dashboard.component";
 })
 
 export class AppComponent {
+  title = 'earthquake-info';
   
 }

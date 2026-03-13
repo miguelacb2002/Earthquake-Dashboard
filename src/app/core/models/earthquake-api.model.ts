@@ -1,5 +1,3 @@
-import { Earthquake } from "./earhquake.model";
-
 export interface EarthquakeApi {
     type: string
 

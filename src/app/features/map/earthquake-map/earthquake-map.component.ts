@@ -38,7 +38,6 @@ export class EarthquakeMapComponent implements OnInit {
 
         if (!eq) return;
 
-        // actualizar terremoto seleccionado
         this.selectedEarthquake = eq;
 
         const newCenter = {
@@ -46,7 +45,6 @@ export class EarthquakeMapComponent implements OnInit {
           lng: Number(eq.longitude)
         };
 
-        // centrar mapa
         this.center = newCenter;
         this.zoom = 6;
 
@@ -54,7 +52,6 @@ export class EarthquakeMapComponent implements OnInit {
           this.map.googleMap.panTo(newCenter);
         }
 
-        // abrir popup correspondiente
         setTimeout(() => {
 
           const marker = this.markers.find(m =>

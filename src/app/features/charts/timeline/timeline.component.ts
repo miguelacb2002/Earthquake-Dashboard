@@ -85,60 +85,82 @@ export class TimelineComponent implements OnInit, OnChanges {
     }))
 
     this.chartOptions = {
-
-      series: [
-        {
-          name: 'Earthquake Magnitude',
-          data
-        }
-      ],
-
-      chart: {
-        type: 'scatter',
-        height: 350,
-        zoom: { enabled: true },
-
-        events: {
-          markerClick: (event: any, chartContext: any, config: any) => {
-
-            const index = config.dataPointIndex
-            const eq = this.earthquakes[index]
-
-            if (eq) {
-              this.store.selectEarthquake(eq)
-            }
-
-          }
-        }
-      },
-
-      markers: {
-        size: 4,
-        discrete: this.selectedIndex !== null ? [
-          {
-            seriesIndex: 0,
-            dataPointIndex: this.selectedIndex,
-            fillColor: '#ff0000',
-            strokeColor: '#000',
-            size: 8
-          }
-        ] : []
-      },
-
-      xaxis: {
-        type: 'datetime',
-        title: { text: 'Time' }
-      },
-
-      yaxis: {
-        title: { text: 'Magnitude' }
-      },
-
-      tooltip: {
-        x: { format: 'dd MMM HH:mm' }
-      }
-
+  series: [
+    {
+      name: 'Earthquake Magnitude',
+      data
     }
+  ],
+
+  chart: {
+    type: 'scatter',
+    height: 350,
+    zoom: { enabled: true },
+    events: {
+      markerClick: (event: any, chartContext: any, config: any) => {
+        const index = config.dataPointIndex;
+        const eq = this.earthquakes[index];
+        if (eq) {
+          this.store.selectEarthquake(eq);
+        }
+      }
+    }
+  },
+
+  markers: {
+    size: 4,
+    discrete: this.selectedIndex !== null ? [
+      {
+        seriesIndex: 0,
+        dataPointIndex: this.selectedIndex,
+        fillColor: '#ff0000',
+        strokeColor: '#000',
+        size: 8
+      }
+    ] : []
+  },
+
+  xaxis: {
+    type: 'datetime',
+    title: { 
+      text: 'Time', 
+      style: { color: '#ffffff', fontSize: '14px', fontWeight: 'bold' } 
+    },
+    labels: {
+      style: { 
+        colors: '#ffffff', 
+        fontSize: '12px' 
+      }
+    }
+  },
+
+  yaxis: {
+    title: { 
+      text: 'Magnitude',
+      style: { color: '#ffffff', fontSize: '14px', fontWeight: 'bold' }
+    },
+    labels: {
+      style: { 
+        colors: '#ffffff', 
+        fontSize: '12px' 
+      }
+    }
+  },
+
+  tooltip: {
+    x: { format: 'dd MMM HH:mm' },
+    style: {
+      fontSize: '12px',
+      color: '#ffffff'
+    }
+  },
+
+  legend: {
+    labels: {
+      colors: '#ffffff' 
+    }
+  }
+};
 
   }
 
